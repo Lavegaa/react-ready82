@@ -11,26 +11,23 @@ mongoose.connect(
 );
 
 const typeDefs = `
-type User {
-    id: ID!
-    fullname: String!
-    username: String!
-    phone_number: String!
-    city: String!
+    type User {
+        tier: String!
+        rank: String!
+        summonerId: String!
+        summonerName: String!
+        leaguePoints: Int!
+        wins: Int!
+        losses: Int!
+    }
+
+    type My {
+      name: String!
+      id: String!
     }
 
     type Query {
-    getUsers: [User]
-    }
-
-    type Mutation {
-    addUser(
-        fullname: String!
-        username: String!
-        phone_number: String!
-        city: String!
-    ): User!
-    deleteUser(id: ID!): String
+        getUser(userid:String!): [My]!
     }
 `;
 

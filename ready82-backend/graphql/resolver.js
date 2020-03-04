@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { getUserID } from "./api";
 
 const User = mongoose.model("User", {
   fullname: String,
@@ -9,18 +10,7 @@ const User = mongoose.model("User", {
 
 const resolvers = {
   Query: {
-    getUsers: () => User.find()
-  },
-  Mutation: {
-    addUser: async (_, { fullname, username, phone_number, city }) => {
-      const user = new User({ fullname, username, phone_number, city });
-      await user.save();
-      return user;
-    },
-    deleteUser: async (_, { id }) => {
-      await User.findByIdAndRemove(id);
-      return "User deleted";
-    }
+    getUser: (_, { userid }) => getUserID(userid)
   }
 };
 
