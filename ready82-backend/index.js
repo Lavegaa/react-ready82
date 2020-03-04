@@ -27,7 +27,7 @@ const typeDefs = `
     }
 
     type Query {
-        getUser(userid:String!): [My]!
+        getUser(userid:String!): My!
     }
 `;
 
