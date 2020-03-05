@@ -11,7 +11,7 @@ mongoose.connect(
 );
 
 const typeDefs = `
-    type User {
+    type Details {
         tier: String!
         rank: String!
         summonerId: String!
@@ -28,6 +28,7 @@ const typeDefs = `
 
     type Query {
         getUser(userid:String!): My!
+        getDetails(encryptedid:String!): [Details]!
     }
 `;
 

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { getUserID } from "./api";
+import { getUserID, getUserDetails } from "./api";
 
 const User = mongoose.model("User", {
   fullname: String,
@@ -10,7 +10,8 @@ const User = mongoose.model("User", {
 
 const resolvers = {
   Query: {
-    getUser: (_, { userid }) => getUserID(userid)
+    getUser: (_, { userid }) => getUserID(userid),
+    getDetails: (_, { encryptedid }) => getUserDetails(encryptedid)
   }
 };
 
