@@ -24,7 +24,7 @@ const GET_DETAILS = gql`
   }
 `;
 
-export default function Search() {
+export default function SearchPage() {
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [searchValue, setSearchValue] = useState("");

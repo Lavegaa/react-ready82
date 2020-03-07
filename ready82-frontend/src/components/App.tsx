@@ -1,11 +1,12 @@
 import React from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
-import Search from "../routes/Search";
+import { SearchPage, LoginPage } from "../routes";
 
 function App() {
   return (
     <Router>
-      <Route exact path="/" component={Search} />
+      <Route exact path="/" component={SearchPage} />
+      <Route path="/login" component={LoginPage} />
     </Router>
   );
 }
