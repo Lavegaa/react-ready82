@@ -21,13 +21,20 @@ const typeDefs = `
         losses: Int!
     }
 
-    type My {
+    type Userid {
       name: String!
       id: String!
     }
 
+    type User {
+      email: String,
+      userid: String,
+      encryptedid: String
+    }
+
     type Query {
-        getUser(userid:String!): My!
+        findUser(email:String!): [User]
+        getUser(userid:String!): Userid!
         getDetails(encryptedid:String!): [Details]!
     }
 `;

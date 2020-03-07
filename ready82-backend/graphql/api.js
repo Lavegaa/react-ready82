@@ -1,11 +1,20 @@
 import axios from "axios";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
+
 dotenv.config();
+
 const SUMMONER_URL = `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/`;
 const USERID_URL = `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/`;
+
+export const User = mongoose.model("User", {
+  email: String,
+  userid: String,
+  encryptedid: String
+});
+
 export const getUserID = async userid => {
   const url = SUMMONER_URL.concat(userid);
-  console.log(url);
   const user = await axios(url, {
     params: {
       api_key: process.env.RIOT_API_KEY
