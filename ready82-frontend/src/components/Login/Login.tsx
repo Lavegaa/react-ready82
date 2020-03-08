@@ -8,7 +8,7 @@ import {
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { useUserState, useUserDispatch } from "../../contexts/UserContext";
-
+import { Redirect } from "react-router-dom";
 const FIND_USER = gql`
   query findUser($email: String!) {
     findUser(email: $email) {
@@ -19,6 +19,7 @@ const FIND_USER = gql`
 
 export default function Login() {
   const [name, setName] = useState("");
+  const [move, setMove] = useState(0);
   const state = useUserState();
   const dispatch = useUserDispatch();
   const { email } = state;
@@ -32,6 +33,7 @@ export default function Login() {
       console.log(DEMAIL.findUser);
       if (DEMAIL.findUser.length === 0) {
         console.log("is empty!");
+        setMove(1);
       }
     }
   });
@@ -51,6 +53,7 @@ export default function Login() {
   };
   return (
     <div>
+      {move === 1 && <Redirect to="/" />}
       <GoogleLogin
         clientId="130629619868-02sc0crss4v4t5o3lftmq210hfcj1iq0.apps.googleusercontent.com"
         buttonText="Login"
