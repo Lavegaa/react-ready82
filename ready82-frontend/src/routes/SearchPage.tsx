@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import styled from "styled-components";
+import { useUserState } from "../contexts/UserContext";
 
 const GET_USERID = gql`
   query getUserID($userid: String!) {
@@ -24,7 +25,19 @@ const GET_DETAILS = gql`
   }
 `;
 
+const ADD_USER = gql`
+  mutation addUser($email: String!, $userid: String!, $encryptedid: String!) {
+    addUser(email: $email, userid: $userid, encryptedid: $encryptedid) {
+      email
+      userid
+      encryptedid
+    }
+  }
+`;
+
 export default function SearchPage() {
+  const state = useUserState();
+  const { email } = state;
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [searchValue, setSearchValue] = useState("");
@@ -32,6 +45,7 @@ export default function SearchPage() {
   const [rank, setRank] = useState("");
   const [wins, setWins] = useState(0);
   const [losses, setLosses] = useState(0);
+  const [addUser, { data }] = useMutation(ADD_USER);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
@@ -49,10 +63,11 @@ export default function SearchPage() {
   });
 
   const HandleSubmitId = () => {
+    console.log(DID);
+    setName(DID?.getUser?.name);
+    setId(DID?.getUser?.id);
     if (DDETAILS?.getDetails[0] !== undefined) {
       console.log("it's exist");
-      setName(DID?.getUser?.name);
-      setId(DID?.getUser?.id);
       setTier(DDETAILS?.getDetails[0]?.tier);
       setRank(DDETAILS?.getDetails[0]?.rank);
       setWins(DDETAILS?.getDetails[0]?.wins);
@@ -62,9 +77,16 @@ export default function SearchPage() {
     }
   };
 
-  const HandleSubmit = () => {
+  const HandleSubmitAddUser = () => {
     if (DDETAILS?.getDetails[0] !== undefined) {
       console.log("it's exist");
+      addUser({
+        variables: {
+          email: email,
+          userid: searchValue,
+          encryptedid: id
+        }
+      });
     }
   };
 
@@ -80,7 +102,7 @@ export default function SearchPage() {
       <button onMouseDown={HandleSubmitId} onMouseUp={HandleSubmitId}>
         검색
       </button>
-      <button onClick={HandleSubmit}>저장하기</button>
+      <button onClick={HandleSubmitAddUser}>저장하기</button>
     </>
   );
 }
