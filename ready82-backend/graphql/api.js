@@ -13,6 +13,11 @@ export const User = mongoose.model("User", {
   encryptedid: String
 });
 
+export const post = mongoose.model("post", {
+  email: String,
+  post: String
+});
+
 export const getUserID = async userid => {
   const url = SUMMONER_URL.concat(userid);
   const user = await axios(url, {
