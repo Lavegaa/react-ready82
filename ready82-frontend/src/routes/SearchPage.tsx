@@ -34,7 +34,6 @@ export default function SearchPage() {
   const [losses, setLosses] = useState(0);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
-    console.log(searchValue);
   };
 
   const { data: DID } = useQuery(GET_USERID, {
@@ -56,8 +55,13 @@ export default function SearchPage() {
     setRank(DDETAILS?.getDetails[0]?.rank);
     setWins(DDETAILS?.getDetails[0]?.wins);
     setLosses(DDETAILS?.getDetails[0]?.losses);
-    console.log(DDETAILS);
   };
+
+  const twice = () => {
+    HandleSumbitId();
+    HandleSumbitId();
+  };
+
   return (
     <>
       <h1>name: {name}</h1>
@@ -67,7 +71,9 @@ export default function SearchPage() {
       <h1>losses: {losses}</h1>
       <h1>winrate: {Math.floor((wins / (losses + wins)) * 100)}</h1>
       <input onChange={handleInputChange} value={searchValue} />
-      <button onClick={HandleSumbitId}>검색</button>
+      <button onMouseDown={HandleSumbitId} onMouseUp={HandleSumbitId}>
+        검색
+      </button>
     </>
   );
 }

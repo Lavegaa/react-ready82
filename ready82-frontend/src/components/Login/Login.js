@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  GoogleLogin,
-  GoogleLogout,
-  GoogleLoginResponse,
-  GoogleLoginResponseOffline
-} from "react-google-login";
+import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import { useUserState, useUserDispatch } from "../../contexts/UserContext";
 import { Redirect } from "react-router-dom";
+
 const FIND_USER = gql`
   query findUser($email: String!) {
     findUser(email: $email) {
@@ -19,6 +15,8 @@ const FIND_USER = gql`
 
 export default function Login() {
   const [name, setName] = useState("");
+  // move: 1 최초 로그인 -> 게임 아이디 입력 페이지로 이동
+  // move: 2 게임 아이디 정보가 있음 -> 메인 페이지로 이동
   const [move, setMove] = useState(0);
   const state = useUserState();
   const dispatch = useUserDispatch();
@@ -30,20 +28,18 @@ export default function Login() {
   });
   useEffect(() => {
     if (email !== "") {
-      console.log(DEMAIL.findUser);
-      if (DEMAIL.findUser.length === 0) {
-        console.log("is empty!");
-        setMove(1);
-      }
+      console.log(DEMAIL);
+      // if (DEMAIL.findUser.length === 0) {
+      //   console.log("is empty!");
+      //   setMove(1);
+      // }
     }
   });
 
-  const responseGoogle = (
-    response: GoogleLoginResponse | GoogleLoginResponseOffline
-  ) => {
+  const responseGoogle = response => {
     dispatch({ type: "SET_EMAIL", value: response.profileObj.email });
   };
-  const responseError = (error: string) => {
+  const responseError = error => {
     console.log(error);
   };
 
