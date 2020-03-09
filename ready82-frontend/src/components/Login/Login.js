@@ -29,10 +29,10 @@ export default function Login() {
   useEffect(() => {
     if (email !== "") {
       console.log(DEMAIL);
-      // if (DEMAIL.findUser.length === 0) {
-      //   console.log("is empty!");
-      //   setMove(1);
-      // }
+      if (DEMAIL.findUser.length === 0) {
+        console.log("is empty!");
+        setMove(1);
+      }
     }
   });
 
@@ -61,7 +61,7 @@ export default function Login() {
         clientId="130629619868-02sc0crss4v4t5o3lftmq210hfcj1iq0.apps.googleusercontent.com"
         buttonText="Logout"
         onLogoutSuccess={responseLogout}
-      ></GoogleLogout>
+      />
       <h1>name:{name}</h1>
     </div>
   );

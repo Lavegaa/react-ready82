@@ -35,7 +35,15 @@ const typeDefs = `
     type Query {
         findUser(email:String!): [User]
         getUser(userid:String!): Userid!
-        getDetails(encryptedid:String!): [Details]!
+        getDetails(encryptedid:String!): [Details]
+    }
+
+    type Mutation {
+      addUser(
+        email:String!
+        userid:String!
+        encryptedid:String!
+      ): User!
     }
 `;
 

@@ -48,18 +48,24 @@ export default function SearchPage() {
     }
   });
 
-  const HandleSumbitId = () => {
-    setName(DID?.getUser?.name);
-    setId(DID?.getUser?.id);
-    setTier(DDETAILS?.getDetails[0]?.tier);
-    setRank(DDETAILS?.getDetails[0]?.rank);
-    setWins(DDETAILS?.getDetails[0]?.wins);
-    setLosses(DDETAILS?.getDetails[0]?.losses);
+  const HandleSubmitId = () => {
+    if (DDETAILS?.getDetails[0] !== undefined) {
+      console.log("it's exist");
+      setName(DID?.getUser?.name);
+      setId(DID?.getUser?.id);
+      setTier(DDETAILS?.getDetails[0]?.tier);
+      setRank(DDETAILS?.getDetails[0]?.rank);
+      setWins(DDETAILS?.getDetails[0]?.wins);
+      setLosses(DDETAILS?.getDetails[0]?.losses);
+    } else {
+      console.log("it's not exist!");
+    }
   };
 
-  const twice = () => {
-    HandleSumbitId();
-    HandleSumbitId();
+  const HandleSubmit = () => {
+    if (DDETAILS?.getDetails[0] !== undefined) {
+      console.log("it's exist");
+    }
   };
 
   return (
@@ -71,9 +77,10 @@ export default function SearchPage() {
       <h1>losses: {losses}</h1>
       <h1>winrate: {Math.floor((wins / (losses + wins)) * 100)}</h1>
       <input onChange={handleInputChange} value={searchValue} />
-      <button onMouseDown={HandleSumbitId} onMouseUp={HandleSumbitId}>
+      <button onMouseDown={HandleSubmitId} onMouseUp={HandleSubmitId}>
         검색
       </button>
+      <button onClick={HandleSubmit}>저장하기</button>
     </>
   );
 }
