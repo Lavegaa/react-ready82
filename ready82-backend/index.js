@@ -32,6 +32,19 @@ const typeDefs = `
       encryptedid: String
     }
 
+    type Post {
+      id: String,
+      title: String,
+      host: String,
+      time: String,
+      target_time: String,
+      top_id: String,
+      jungle_id: String,
+      mid_id: String,
+      ad_id: String,
+      sup_id: String
+    }
+
     type Query {
         findUser(email:String!): [User]
         getUser(userid:String!): Userid!
@@ -44,6 +57,18 @@ const typeDefs = `
         userid:String!
         encryptedid:String!
       ): User!
+      addPost(
+        id:String
+        title:String
+        host:String
+        time:String
+        target_time:String
+        top_id:String
+        jungle_id:String
+        mid_id:String
+        ad_id:String
+        sup_id:String
+      ): Post
     }
 `;
 

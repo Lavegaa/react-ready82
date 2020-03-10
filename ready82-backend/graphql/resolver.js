@@ -7,9 +7,17 @@ const User = mongoose.model("User", {
   encryptedid: String
 });
 
-const post = mongoose.model("post", {
-  email: String,
-  post: String
+const Post_5p = mongoose.model("post", {
+  id: String,
+  title: String,
+  host: String,
+  time: String,
+  target_time: String,
+  top_id: String,
+  jungle_id: String,
+  mid_id: String,
+  ad_id: String,
+  sup_id: String
 });
 const resolvers = {
   Query: {
@@ -22,6 +30,11 @@ const resolvers = {
       const user = new User({ email, userid, encryptedid });
       await user.save();
       return user;
+    },
+    addPost: async (_, { id, title, host, time, target_time }) => {
+      const post = new User({ id, title, host, time, target_time });
+      await post.save();
+      return post;
     }
   }
 };
