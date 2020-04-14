@@ -102,7 +102,26 @@ const resolvers = {
       return room;
     },
 
-    // joinUser: async(_, {}),
+    joinRoom: async (_, { id, userid, line }) => {
+      await User.findOne({ userid: userid }).then(async (res) => {
+        await Room_5P.updateOne(
+          { id: id },
+          {
+            $set: {
+              [`${line}`]: {
+                userid: res.userid,
+                tier: res.tier,
+                rank: res.rank,
+                leaguePoints: res.leaguePoints,
+                wins: res.wins,
+                losses: res.losses,
+              },
+            },
+          }
+        );
+      });
+      return Room_5P.findOne({ id: id });
+    },
   },
 };
 

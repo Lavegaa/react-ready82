@@ -95,6 +95,12 @@ const typeDefs = `
         time: String
         target_time: String
       ): Room
+
+      joinRoom(
+        id: String
+        userid: String
+        line: String
+      ): Room
     }
 `;
 
