@@ -37,17 +37,26 @@ const typeDefs = `
       losses: Int,
     }
 
+    type LineInfo {
+      userid: String,
+      tier: String,
+      rank: String,
+      leaguePoints: Int,
+      wins: Int,
+      losses: Int
+    }
+
     type Room {
       id: String,
       title: String,
       host: String,
       time: String,
       target_time: String,
-      top_id: String,
-      jungle_id: String,
-      mid_id: String,
-      ad_id: String,
-      sup_id: String
+      top: LineInfo
+      jungle: LineInfo
+      mid: LineInfo
+      ad: LineInfo
+      sup: LineInfo    
     }
 
     type Query {
@@ -77,18 +86,14 @@ const typeDefs = `
         wins: Int,
         losses: Int,
       ): User!
+      
 
       addRoom(
-        id:String
-        title:String
-        host:String
-        time:String
-        target_time:String
-        top_id:String
-        jungle_id:String
-        mid_id:String
-        ad_id:String
-        sup_id:String
+        id: String
+        title: String
+        host: String
+        time: String
+        target_time: String
       ): Room
     }
 `;

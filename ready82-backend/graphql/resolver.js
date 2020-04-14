@@ -12,17 +12,26 @@ const User = mongoose.model("user", {
   losses: Number,
 });
 
+const LineObject = {
+  userid: String,
+  tier: String,
+  rank: String,
+  leaguePoints: Number,
+  wins: Number,
+  losses: Number,
+};
+
 const Room_5P = mongoose.model("room", {
   id: String,
   title: String,
   host: String,
   time: String,
   target_time: String,
-  top_id: String,
-  jungle_id: String,
-  mid_id: String,
-  ad_id: String,
-  sup_id: String,
+  top: LineObject,
+  jungle: LineObject,
+  mid: LineObject,
+  ad: LineObject,
+  sup: LineObject,
 });
 const resolvers = {
   Query: {
@@ -69,22 +78,31 @@ const resolvers = {
     },
 
     addRoom: async (_, { id, title, host, time, target_time }) => {
-      const line_default = "";
+      const line_default = {
+        userid: "default",
+        tier: "default",
+        rank: "default",
+        leaguePoints: -1,
+        wins: -1,
+        losses: -1,
+      };
       const room = new Room_5P({
         id,
         title,
         host,
         time,
         target_time,
-        line_default,
-        line_default,
-        line_default,
-        line_default,
-        line_default,
+        top: line_default,
+        jungle: line_default,
+        mid: line_default,
+        ad: line_default,
+        sup: line_default,
       });
       await room.save();
       return room;
     },
+
+    // joinUser: async(_, {}),
   },
 };
 
