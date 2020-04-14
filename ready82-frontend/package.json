@@ -17,6 +17,7 @@
     "dotenv": "^8.2.0",
     "graphql": "^14.6.0",
     "react": "^16.13.0",
+    "react-context-devtool": "^1.0.1",
     "react-dom": "^16.13.0",
     "react-google-login": "^5.1.1",
     "react-router-dom": "^5.1.2",

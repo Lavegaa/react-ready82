@@ -6,19 +6,19 @@ mongoose.connect(
   "mongodb+srv://user_01:qlqjs9515@cudy-lllg6.gcp.mongodb.net/test?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   }
 );
 
 const typeDefs = `
     type Details {
-        tier: String!
-        rank: String!
-        summonerId: String!
-        summonerName: String!
-        leaguePoints: Int!
-        wins: Int!
-        losses: Int!
+      tier: String!
+      rank: String!
+      summonerId: String!
+      summonerName: String!
+      leaguePoints: Int!
+      wins: Int!
+      losses: Int!
     }
 
     type Userid {
@@ -29,10 +29,15 @@ const typeDefs = `
     type User {
       email: String,
       userid: String,
-      encryptedid: String
+      encryptedid: String,
+      tier: String,
+      rank: String,
+      leaguePoints: Int,
+      wins: Int,
+      losses: Int,
     }
 
-    type Post {
+    type Room {
       id: String,
       title: String,
       host: String,
@@ -46,18 +51,34 @@ const typeDefs = `
     }
 
     type Query {
-        findUser(email:String!): [User]
+        findUser(email:String!): User
         getUser(userid:String!): Userid!
         getDetails(encryptedid:String!): [Details]
     }
 
     type Mutation {
       addUser(
-        email:String!
-        userid:String!
-        encryptedid:String!
+        email: String,
+        userid: String,
+        encryptedid: String,
+        tier: String,
+        rank: String,
+        leaguePoints: Int,
+        wins: Int,
+        losses: Int,
       ): User!
-      addPost(
+
+      updateUser(
+        email: String,
+        userid: String,
+        tier: String,
+        rank: String,
+        leaguePoints: Int,
+        wins: Int,
+        losses: Int,
+      ): User!
+
+      addRoom(
         id:String
         title:String
         host:String
@@ -68,15 +89,15 @@ const typeDefs = `
         mid_id:String
         ad_id:String
         sup_id:String
-      ): Post
+      ): Room
     }
 `;
 
 const server = new GraphQLServer({
   typeDefs,
-  resolvers
+  resolvers,
 });
 
-mongoose.connection.once("open", function() {
+mongoose.connection.once("open", function () {
   server.start(() => console.log("Server is running on localhost:4000"));
 });

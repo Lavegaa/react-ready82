@@ -1,4 +1,5 @@
 import React, { createContext, Dispatch, useReducer, useContext } from "react";
+import ContextDevTool from "react-context-devtool";
 
 type UserState = {
   email: string;
@@ -17,7 +18,7 @@ function userReducer(state: UserState, action: Action): UserState {
       console.log("is context", action.value);
       return {
         ...state,
-        email: action.value
+        email: action.value,
       };
     }
 
@@ -27,17 +28,22 @@ function userReducer(state: UserState, action: Action): UserState {
 }
 
 export function UserContextProvider({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) {
   const [user, dispatch] = useReducer(userReducer, {
-    email: ""
+    email: "",
   });
 
   return (
     <UserDispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={user}>
+        <ContextDevTool
+          context={UserStateContext}
+          id="uniqContextId"
+          displayName="UserState"
+        />
         {children}
       </UserStateContext.Provider>
     </UserDispatchContext.Provider>
