@@ -102,20 +102,32 @@ const resolvers = {
       return room;
     },
 
-    joinRoom: async (_, { id, userid, line }) => {
+    joinRoom: async (_, { id, userid, line, mode }) => {
       await User.findOne({ userid: userid }).then(async (res) => {
         await Room_5P.updateOne(
           { id: id },
           {
             $set: {
-              [`${line}`]: {
-                userid: res.userid,
-                tier: res.tier,
-                rank: res.rank,
-                leaguePoints: res.leaguePoints,
-                wins: res.wins,
-                losses: res.losses,
-              },
+              [`${line}`]:
+                //mode > join: 라인 선택 (id(room), userid, line, mode 필수)
+                //       exit: 라인 선택 해제 (id(room), line, mode 필수)
+                mode === "join"
+                  ? {
+                      userid: res.userid,
+                      tier: res.tier,
+                      rank: res.rank,
+                      leaguePoints: res.leaguePoints,
+                      wins: res.wins,
+                      losses: res.losses,
+                    }
+                  : {
+                      userid: "default",
+                      tier: "default",
+                      rank: "default",
+                      leaguePoints: -1,
+                      wins: -1,
+                      losses: -1,
+                    },
             },
           }
         );

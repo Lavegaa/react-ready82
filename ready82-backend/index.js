@@ -100,6 +100,7 @@ const typeDefs = `
         id: String
         userid: String
         line: String
+        mode: String
       ): Room
     }
 `;
